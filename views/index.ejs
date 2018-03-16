@@ -1,6 +1,28 @@
 <% include partials/header %>
 
-        <h1>The Jungle is jumping!</h1>
+	<h1>The Jungle is jumping!</h1>
 
-        <h2><%= summary %></h2>
+	<h2><%= summary %></h2>
+
+	<h2>Add Prayer Request</h2>
+	<form method="POST" action="/prayers/add">
+		<label for="title">Title</label>
+		<input type="text" name="title" id="title">
+
+		<label for="summary">Summary</label>
+		<input type="text" name="summary">
+		
+		<input type="submit" value="Add">
+	</form>
+
+	<ul>
+		<% prayerRequests.forEach(function(request){ %>
+			<li>
+			
+				<h3><%= request.title %></h3>
+
+			</li>
+		<% }) %>
+	</ul>
+
  <% include partials/footer %>
