@@ -2,9 +2,10 @@
 var express = require ('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var _ = require('underscore');
 
 var app = express();
-// var expressValidator = require('express-validator/check');
+
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
@@ -32,6 +33,7 @@ var people = [{
 }
 ];
 */
+
 
 var prayers = [{
         title: 'Fertility',
@@ -69,7 +71,7 @@ app.get('/flop', function(req, res){
 app.post('/prayers/add', [  
     check('title', 'Must enter title').isLength({ min: 1 }),
     check('summary', 'Must enter summary').isLength({ min: 1 })
-    ], (req, res, next) => {
+    ], (req, res, next) =>{
 
         const errors = validationResult(req); 
         if(!errors.isEmpty()){
@@ -79,8 +81,7 @@ app.post('/prayers/add', [
         const pr = matchedData(req);
         console.log('Yellow');
         console.log(pr);
-
-});
+    });
 
 app.listen(2031, function(){
     console.log('server started on port 2031');
