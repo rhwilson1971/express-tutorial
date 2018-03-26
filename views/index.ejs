@@ -9,8 +9,8 @@
 		<label for="title">Title</label>
 		<input type="text" name="title" id="title">
 
-		<label for="summary">Summary</label>
-		<input type="text" name="summary">
+		<label for="prayer">Prayer Request</label>
+		<input type="text" name="prayer">
 		
 		<input type="submit" value="Add">
 	</form>
@@ -18,7 +18,9 @@
 	<ul>
 		<% prayerRequests.forEach(function(request){ %>
 			<li>
-				<h3><%= request.title %></h3>
+				<h3><%= request.title %> &nbsp;&nbsp;&nbsp; <a href="#" 
+					class="deletePrayer" 
+					data-id="<%= request._id %>">Delete</a></h3>
 			</li>
 		<% }) %>
 	</ul>
