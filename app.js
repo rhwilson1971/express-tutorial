@@ -1,5 +1,4 @@
 
-
 //const { express } = require('express');
 var express = require ('express');
 var bodyParser = require('body-parser');
@@ -25,59 +24,18 @@ app.use(bodyParser.urlencoded({extended: false}));
 // setup static resources
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-/*
-var people = [{
-
-    name: 'Reuben',
-    age: 46
-
-},
-{
-    name: 'Cynthia',
-    age: 48
-}
-];
-*/
-
-/*
-var prayers = [{
-        title: 'Fertility',
-        summary: 'Pray for myself and my wife to have healthy child',
-        answered: false    
-    },
-    {
-        title: 'Grow',
-        summary: 'Pray for business to take off good',
-        answered: false
-    },
-    {
-        title: 'Phd',
-        summary: 'Finish PhD',
-        answered: false
-    },
-    {
-        title: 'Weight',
-        summary: 'Loose 15 lbs',
-        answered: false
-    }
-]; */
-
 // Get request to root
-app.get('/flop', function(req, res){
-    //res.send('Hello World');
-    // res.json(people);
+app.get('/home', function(req, res){
 
-    console.log('finding docs');
     db.prayers.find(function(err, docs){
-        
-        console.log('rendering view');
+    
         res.render('index', {
             summary: 'The jungle wants you now',
             prayerRequests: docs
         });
 
         _.each(docs, function(doc) {
+            console.log('Found some docs');
             console.log(doc);
         });
     });
@@ -93,7 +51,6 @@ app.post('/prayers/add', [
             return res.status(422).json({ errors: errors.mapped()});
         }
 
-
         const pr = matchedData(req);
                 console.log('inserting');
         console.log(pr);
@@ -103,13 +60,13 @@ app.post('/prayers/add', [
                 console.log(err);
             else
                 res.redirect('/flop');
-        })
+        });
+
         console.log('Yellow');
         console.log(pr);
     });
 
-
-app.delete('/prayers/delete/:id', function(req, res){
+    app.delete('/prayers/delete/:id', function(req, res){
     console.log(req.params.id);
 
     db.prayers.remove({_id: ObjectId(req.params.id)}, function(err, result){
@@ -118,6 +75,10 @@ app.delete('/prayers/delete/:id', function(req, res){
  
         res.redirect('/flop');
     });
+});
+
+app.put('/prayers/update', function(req, res){
+    // 
 });
 
 app.listen(2031, function(){
